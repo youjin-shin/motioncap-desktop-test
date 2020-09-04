@@ -1,73 +1,89 @@
-/* eslint-disable vue/no-unused-components */
 <template>
-  <v-container>
-    <v-layout row wrap>
-      <v-flex lg2 order-lg1>
-        <v-card tile flat class="ma-0 pa-0">
-          <div>
-            <Samples />
-          </div>
-        </v-card>
-      </v-flex>
-      <v-flex lg8 order-lg2>
-        <v-card fluid class="ma-0 pa-0">
-          <div>
-          <RenderingSection />
-          </div>
-        </v-card>
-      </v-flex>
-      <v-flex lg2 order-lg3>
-        <v-card fluid class="ma-0 pa-0">
-          <div>
-          <Rigging />
-          </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
+<v-container
+  class="main-container px-7"
+  fluid
+  fill-height
+>
+<v-layout row wrap>
+  <v-row>
+    <v-col cols="2.5" class="pa-1">
+      <div class="section-card ">
+      <Directory />
+      </div>
+    </v-col>
+<!-- style="align-self: baseline" -->
+    <v-col cols="7" class="pa-1" >
+      <div class="section-card">
+        <RenderingSection @initTimeline="initTimeline"/>
+      </div>
+    </v-col>
+    <v-col cols="2.5" class="pa-1">
+      <div class="section-card ">
+      <Menu />
+      </div>
+    </v-col>
+    <v-col cols="12" class="pa-1">
+    <div class="section-card pa-2">
+      <TimelineSection ref="TimelineSection"/>
+    </div>
+    </v-col>
+  </v-row>
 
-    <v-layout row wrap>
-          <v-flex lg10 order-lg2>
-        <v-card depressed
-        class="ma-0 pa-0"
-        weight="auto"
-        max-height="auto">
-        <div>
-          <Track />
-        </div>
-        </v-card>
-      </v-flex>
-    </v-layout>
+  <!-- <v-row>
+  </v-row> -->
+</v-layout>
 
-      <v-flex lg2 order-lg1>
-        <v-card fluid
-        class="ma-0 pa-0">
-          <div>
-            <Body />
-          </div>
-
-        </v-card>
-      </v-flex>
-
-      <v-flex lg2 order-lg3>
-        <v-card fluid
-        class="ma-0 pa-0">
-        </v-card>
-      </v-flex>
-  </v-container>
+</v-container>
 </template>
+
+<style>
+.main-container {
+  background: #e6e6e6;
+}
+.section-card {
+  border-radius: 5px 5px;
+  overflow: hidden;
+  background: #f5f5f5;
+  height: 100%;
+}
+</style>
 
 <script>
 // @ is an alias to /src
 import RenderingSection from '@/components/Rendering/RenderingSection.vue'
-import Samples from '@/components/Samples.vue'
-import Body from '@/components/Body.vue'
-import Rigging from '@/components/Rigging.vue'
-import Track from '@/components/Track.vue'
+import Samples from '@/components/Directory/Samples.vue'
+import Properties from '@/components/Function/Properties.vue'
+import TimelineSection from '@/components/Rendering/Timeliner.vue'
+import Directory from '@/components/Directory/Directory.vue'
+import Menu from '@/components/Function/Menu.vue'
 
 export default {
   name: 'Home',
   components: {
-    RenderingSection, Samples, Body, Rigging, Track
+    // eslint-disable-next-line vue/no-unused-components
+    RenderingSection,
+    // eslint-disable-next-line vue/no-unused-components
+    Samples,
+    // eslint-disable-next-line vue/no-unused-components
+    Properties,
+    // eslint-disable-next-line vue/no-unused-components
+    TimelineSection,
+    Directory,
+    Menu
+
+  },
+  data () {
+    return {
+      isTimelinerInit: false,
+      objects: [],
+      scene: undefined,
+      render: undefined
+    }
+  },
+  methods: {
+    initTimeline (scene, objects, render) {
+      this.$refs.TimelineSection.init(scene, objects, render)
+    }
   }
 }
 </script>
