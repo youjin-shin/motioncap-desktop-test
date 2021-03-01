@@ -17,7 +17,7 @@
     "core-js": "^3.6.5",
     "do.js": "^1.0.0",
     "roboto-fontface": "*",
-    "three": "^0.118.3",
+    "three": "^0.125.0",
     "vue": "^2.6.11",
     "vue-multipane": "^0.9.5",
     "vue-router": "^3.2.0",
